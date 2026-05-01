@@ -1,0 +1,10 @@
+tickers:
+  - HDFCBANK.NS
+  - ICICIBANK.NS
+  - SBIN.NS
+  - KOTAKBANK.NS
+  - AXISBANK.NS
+  - INDUSINDBK.NS
+
+period: "5y"
+interval: "1d"
