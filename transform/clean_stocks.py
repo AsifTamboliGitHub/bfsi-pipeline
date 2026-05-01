@@ -8,10 +8,15 @@ def load_all_stocks(parquet_folder):
         if file.endswith(".parquet"):
             path = os.path.join(parquet_folder, file)
             df = pd.read_parquet(path)
+            df = df.reset_index()
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = [col[0] for col in df.columns]
+            df.columns = [str(col).lower().strip() for col in df.columns]
+            print(f"{file} → type: {type(df)}, shape: {df.shape}")
             all_dfs.append(df)
-    combined = pd.concat(all_dfs)
-    combined = combined.reset_index()        # ← add this line
-    combined.columns.name = None  
+    
+    print(f"Total files loaded: {len(all_dfs)}")
+    combined = pd.concat(all_dfs, ignore_index=True)
     return combined
 
 def clean_columns(df):
